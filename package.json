@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "description": "Convert Any Currency You want",
   "source": "index.htm",
+  "devDependencies": {
+    "parcel": "^2.4.0"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "parcel",
     "build": "parcel build"
   },
@@ -17,8 +19,5 @@
   "bugs": {
     "url": "https://github.com/Miraz-Uddin/poriborton/issues"
   },
-  "homepage": "https://github.com/Miraz-Uddin/poriborton#readme",
-  "devDependencies": {
-    "parcel": "^2.4.0"
-  }
+  "homepage": "https://github.com/Miraz-Uddin/poriborton#readme"
 }
