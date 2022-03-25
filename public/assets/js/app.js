@@ -3,12 +3,14 @@ import dataStorage from "./dataStorage.js";
 
 const app = {
   loadSelectors() {
+    const convertForm = document.querySelector("#convertForm");
     const fromCurrency = document.querySelector("#fromCurrency");
     const fromAmount = document.querySelector("#fromAmount");
     const fromCountry = document.querySelector("#fromCountry");
     const toCurrency = document.querySelector("#toCurrency");
     const toAmount = document.querySelector("#toAmount");
     const toCountry = document.querySelector("#toCountry");
+    const messageDisplay = document.querySelector("#messageDisplay");
     return {
       fromCurrency,
       fromAmount,
@@ -16,9 +18,92 @@ const app = {
       toCurrency,
       toAmount,
       toCountry,
+      messageDisplay,
+      convertForm,
     };
   },
-  init() {},
+  getInputValues() {
+    const { fromAmount, fromCountry, toAmount, toCountry } =
+      this.loadSelectors();
+    const amountFrom = fromAmount.value;
+    const countryFrom = fromCountry.value;
+    const amountTo = toAmount.value;
+    const countryTo = toCountry.value;
+    return { amountFrom, countryFrom, amountTo, countryTo };
+  },
+  validateInputValues(amountFrom, countryFrom, amountTo, countryTo) {
+    const { fromAmount, fromCountry, toAmount, toCountry } =
+      this.loadSelectors();
+    let bool = false;
+
+    let bool1 = false;
+    fromAmount.style.border = "2px solid red";
+
+    let bool2 = false;
+    toAmount.style.border = "2px solid red";
+
+    if (Boolean(amountFrom)) {
+      bool1 = true;
+      fromAmount.style.border = "2px solid green";
+    }
+
+    if (Boolean(amountTo)) {
+      bool2 = true;
+      toAmount.style.border = "2px solid green";
+    }
+
+    let message = "Please Insert a Number";
+    if (bool1 && bool2) {
+      bool = true;
+      message = "Valid Input";
+    }
+    this.displayMessage(bool, message);
+  },
+  takeOnlyInteger(obj) {
+    let datam = parseInt(obj.value);
+    if (Boolean(datam) == true) {
+      if (datam >= 0) {
+        obj.value = datam;
+        return true;
+      } else {
+        obj.value = "";
+        return false;
+      }
+    } else {
+      obj.value = "";
+      return false;
+    }
+  },
+  displayMessage(type, msg) {
+    const { messageDisplay } = this.loadSelectors();
+    messageDisplay.innerHTML = "";
+    if (type == false)
+      messageDisplay.insertAdjacentHTML(
+        "afterbegin",
+        `<div class="alert alert-danger alert-dismissible fade show" role="alert"><strong>${msg}</strong><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>`
+      );
+  },
+  init() {
+    const { fromAmount, fromCountry, toAmount, toCountry, convertForm } =
+      this.loadSelectors();
+
+    fromAmount.addEventListener("keyup", (e) => {
+      e.preventDefault();
+      this.takeOnlyInteger(fromAmount);
+    });
+
+    toAmount.addEventListener("keyup", (e) => {
+      e.preventDefault();
+      this.takeOnlyInteger(toAmount);
+    });
+
+    convertForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const { amountFrom, countryFrom, amountTo, countryTo } =
+        this.getInputValues(fromAmount, fromCountry, toAmount, toCountry);
+      this.validateInputValues(amountFrom, countryFrom, amountTo, countryTo);
+    });
+  },
 };
 
 export default app;

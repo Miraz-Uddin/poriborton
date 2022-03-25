@@ -102,7 +102,7 @@ input[type="password"]::-ms-reveal {
 
 body {
     min-height: 100vh;
-    background: linear-gradient(to right, #003973, #e5e5be);
+    background: linear-gradient(to right, #4d4fe0, #3d005c);
 }
 
 h1.title {
@@ -135,26 +135,7 @@ input, select {
     padding-left: 8px;
 }
 
-.form input[type="submit"] {
-    flex: 1;
-
-}
-
 /* Result */
-
-.results {
-    margin-top: 18px;
-    height: 40px;
-    display: flex;
-}
-
-#result {
-    flex: 1 1 auto;
-    padding: 0 0 0 15px;
-    background: #fff;
-    margin: 0px 0 0px 0;
-    padding-top: 10px;
-}
 
 #symbol {
     max-width: 25%;

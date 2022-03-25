@@ -16,7 +16,7 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="./public/assets/css/font-awesome.min.css">
 
-    <title>Rock the World</title>
+    <title>Convert Currency</title>
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="./public/assets/css/style.css">
@@ -31,16 +31,26 @@
         <div class="row">
             <div class="col-sm-12 col-md-6 mx-auto">
                 <h1 class="title">Currency Converter</h1>
-                <div class="form">
+                <div id="messageDisplay"></div>
+                <form id="convertForm">
+                  <div class="form">
                     <input id="fromCurrency" type="text" value="EUR" disabled>
-                    <input type="text" id="fromAmount" placeholder="0" value="0">
-                    <select id="fromCountry"></select>
-                </div>
-                <div class="form">
-                    <input id="toCurrency" type="text" value="EUR" disabled>
-                    <input type="text" id="toAmount" placeholder="0" value="0">
-                    <select id="toCountry"></select>
-                </div>
+                    <input type="text" id="fromAmount" placeholder="0">
+                    <select id="fromCountry">
+                      <option value="BD">Bangladesh</option>
+                    </select>
+                  </div>
+                  <div class="form">
+                      <input id="toCurrency" type="text" value="EUR" disabled>
+                      <input type="text" id="toAmount" placeholder="0">
+                      <select id="toCountry">
+                        <option value="BD">Bangladesh</option>
+                      </select>
+                  </div>
+                  <div>
+                    <input type="submit" value="Convert"  class="btn btn-outline-dark">
+                  </div>
+                </form>
             </div>
         </div>          
     </div>
