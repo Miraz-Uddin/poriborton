@@ -114,26 +114,28 @@ h1.title {
     margin-bottom: 40px;
 }
 
-form {
+.form {
     height: 40px;
     display: flex;
+    margin-bottom: 10px;
 }
 
 input, select {
     border: 1px solid #ccc;
+    text-align: center;
 }
 
 #amount {
-    max-width: 25%;
+    max-width: 30%;
     padding: 0 0 0 15px;
 }
 
-form select {
+.form select {
     flex: 1;
     padding-left: 8px;
 }
 
-form input[type="submit"] {
+.form input[type="submit"] {
     flex: 1;
 
 }

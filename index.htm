@@ -29,21 +29,18 @@
   <body>
     <div class="container">
         <div class="row">
-            <div class="col-sm-12 col-md-8 mx-auto">
+            <div class="col-sm-12 col-md-6 mx-auto">
                 <h1 class="title">Currency Converter</h1>
-                <form>
-                    <input type="text" id="amount">
-                    <select name="" id="from">
-                    </select>
-                    <select name="" id="to">
-                    </select>
-                    <input type="submit" value="Convert Me">
-                </form>
-                <div class="results">
-                    <div id="result">
-                    </div>
-                    <input id="symbol" type="text" value="EUR" disabled>
-                </div>  
+                <div class="form">
+                    <input id="fromCurrency" type="text" value="EUR" disabled>
+                    <input type="text" id="fromAmount" placeholder="0" value="0">
+                    <select id="fromCountry"></select>
+                </div>
+                <div class="form">
+                    <input id="toCurrency" type="text" value="EUR" disabled>
+                    <input type="text" id="toAmount" placeholder="0" value="0">
+                    <select id="toCountry"></select>
+                </div>
             </div>
         </div>          
     </div>
