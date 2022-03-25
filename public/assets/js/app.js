@@ -37,19 +37,19 @@ const app = {
     let bool = false;
 
     let bool1 = false;
-    fromAmount.style.border = "2px solid red";
+    fromAmount.style.border = "1px solid red";
 
     let bool2 = false;
-    toAmount.style.border = "2px solid red";
+    toAmount.style.border = "1px solid red";
 
     if (Boolean(amountFrom)) {
       bool1 = true;
-      fromAmount.style.border = "2px solid green";
+      fromAmount.style.border = "1px solid green";
     }
 
     if (Boolean(amountTo)) {
       bool2 = true;
-      toAmount.style.border = "2px solid green";
+      toAmount.style.border = "1px solid green";
     }
 
     let message = "Please Insert a Number";
@@ -61,18 +61,12 @@ const app = {
   },
   takeOnlyInteger(obj) {
     let datam = parseInt(obj.value);
-    if (Boolean(datam) == true) {
-      if (datam >= 0) {
+    if(Boolean(datam) == true && datam >= 0){
         obj.value = datam;
         return true;
-      } else {
-        obj.value = "";
-        return false;
-      }
-    } else {
-      obj.value = "";
-      return false;
     }
+    obj.value = "";
+    return false;
   },
   displayMessage(type, msg) {
     const { messageDisplay } = this.loadSelectors();
@@ -83,6 +77,11 @@ const app = {
         `<div class="alert alert-danger alert-dismissible fade show" role="alert"><strong>${msg}</strong><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>`
       );
   },
+  currencyConvert(obj, currencyRate = 1.00){
+    let datam = parseFloat(obj.value);
+    if(Boolean(datam) == true && datam >= 0) return datam * currencyRate;
+    return 0 * currencyRate;
+  },
   init() {
     const { fromAmount, fromCountry, toAmount, toCountry, convertForm } =
       this.loadSelectors();
@@ -90,11 +89,13 @@ const app = {
     fromAmount.addEventListener("keyup", (e) => {
       e.preventDefault();
       this.takeOnlyInteger(fromAmount);
+      toAmount.value = this.currencyConvert(fromAmount, 5.51); 
     });
 
     toAmount.addEventListener("keyup", (e) => {
       e.preventDefault();
       this.takeOnlyInteger(toAmount);
+      fromAmount.value = this.currencyConvert(toAmount, 5.51);
     });
 
     convertForm.addEventListener("submit", (e) => {
