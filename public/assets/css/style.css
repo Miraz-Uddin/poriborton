@@ -92,3 +92,69 @@ input[type="password"]::-ms-reveal {
 .section-title {
     color: var(--button-color);
 }
+
+/* New Design */
+* {
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(to right, #003973, #e5e5be);
+}
+
+h1.title {
+    color: #fff;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 40px;
+    font-weight: 400;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+form {
+    height: 40px;
+    display: flex;
+}
+
+input, select {
+    border: 1px solid #ccc;
+}
+
+#amount {
+    max-width: 25%;
+    padding: 0 0 0 15px;
+}
+
+form select {
+    flex: 1;
+    padding-left: 8px;
+}
+
+form input[type="submit"] {
+    flex: 1;
+
+}
+
+/* Result */
+
+.results {
+    margin-top: 18px;
+    height: 40px;
+    display: flex;
+}
+
+#result {
+    flex: 1 1 auto;
+    padding: 0 0 0 15px;
+    background: #fff;
+    margin: 0px 0 0px 0;
+    padding-top: 10px;
+}
+
+#symbol {
+    max-width: 25%;
+    text-align: center;
+}
