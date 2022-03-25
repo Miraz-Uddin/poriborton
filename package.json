@@ -1,0 +1,19 @@
+{
+  "name": "poriborton",
+  "version": "1.0.0",
+  "description": "Convert Any Currency You want",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Miraz-Uddin/poriborton.git"
+  },
+  "author": "Md. Miraz Uddin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Miraz-Uddin/poriborton/issues"
+  },
+  "homepage": "https://github.com/Miraz-Uddin/poriborton#readme"
+}
