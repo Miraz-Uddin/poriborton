@@ -2,7 +2,6 @@
   "name": "poriborton",
   "version": "1.0.0",
   "description": "Convert Any Currency You want",
-  "main": "index.js",
   "source": "index.htm",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
