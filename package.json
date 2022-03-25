@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/Miraz-Uddin/poriborton/issues"
   },
-  "homepage": "https://github.com/Miraz-Uddin/poriborton#readme"
+  "homepage": "https://github.com/Miraz-Uddin/poriborton#readme",
+  "devDependencies": {
+    "parcel": "^2.4.0"
+  }
 }
