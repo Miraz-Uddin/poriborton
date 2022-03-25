@@ -3,11 +3,20 @@ import dataStorage from "./dataStorage.js";
 
 const app = {
   loadSelectors() {
-    const symbol = document.querySelector("#symbol");
-    const result = document.querySelector("#result");
-    const to = document.querySelector("#to");
-    const from = document.querySelector("#from");
-    const amount = document.querySelector("#amount");
+    const fromCurrency = document.querySelector("#fromCurrency");
+    const fromAmount = document.querySelector("#fromAmount");
+    const fromCountry = document.querySelector("#fromCountry");
+    const toCurrency = document.querySelector("#toCurrency");
+    const toAmount = document.querySelector("#toAmount");
+    const toCountry = document.querySelector("#toCountry");
+    return {
+      fromCurrency,
+      fromAmount,
+      fromCountry,
+      toCurrency,
+      toAmount,
+      toCountry,
+    };
   },
   init() {},
 };
