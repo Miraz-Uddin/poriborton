@@ -3,18 +3,14 @@ import dataStorage from "./dataStorage.js";
 
 const app = {
   loadSelectors() {
-    const fromCurrency = document.querySelector("#fromCurrency");
     const fromAmount = document.querySelector("#fromAmount");
     const fromCountry = document.querySelector("#fromCountry");
-    const toCurrency = document.querySelector("#toCurrency");
     const toAmount = document.querySelector("#toAmount");
     const toCountry = document.querySelector("#toCountry");
     const messageDisplay = document.querySelector("#messageDisplay");
     return {
-      fromCurrency,
       fromAmount,
       fromCountry,
-      toCurrency,
       toAmount,
       toCountry,
       messageDisplay,
@@ -75,9 +71,12 @@ const app = {
       currencyRate = Object.values(currencyRateObject)[0];
     }
 
+    let result = 0;
     if (Boolean(parseFloat(amount)) == true && parseFloat(amount) >= 0)
-      return parseFloat(amount) * currencyRate;
-    else return 0 * currencyRate;
+      result = parseFloat(amount) * currencyRate;
+    else result = 0 * currencyRate;
+
+    return parseFloat(result).toFixed(2);
   },
   generateDropdown(obj) {
     const { fromCountry, toCountry } = this.loadSelectors();

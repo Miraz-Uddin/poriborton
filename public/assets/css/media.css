@@ -1,5 +1,5 @@
-@media (min-width: 992px){
-    .navbar-expand-lg .navbar-collapse {
-        justify-content: end;
+@media(max-width: 767px) {
+    .form select {
+        min-width: 0;
     }
 }

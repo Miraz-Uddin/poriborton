@@ -133,6 +133,7 @@ select {
 .form select {
     flex: 1;
     padding-left: 8px;
+    min-width: 500px;
 }
 
 /* Result */
