@@ -32,31 +32,15 @@ const app = {
     return { amountFrom, countryFrom, amountTo, countryTo };
   },
   validateInputValues(amountFrom, amountTo) {
-    const { fromAmount, toAmount } = this.loadSelectors();
     let bool = false;
-
     let bool1 = false;
-    fromAmount.style.border = "1px solid red";
-
     let bool2 = false;
-    toAmount.style.border = "1px solid red";
 
-    if (Boolean(amountFrom)) {
-      bool1 = true;
-      fromAmount.style.border = "1px solid green";
-    }
+    if (Boolean(amountFrom)) bool1 = true;
+    if (Boolean(amountTo)) bool2 = true;
+    if (bool1 || bool2) bool = true;
 
-    if (Boolean(amountTo)) {
-      bool2 = true;
-      toAmount.style.border = "1px solid green";
-    }
-
-    let message = "Please Insert a Number";
-    if (bool1 && bool2) {
-      bool = true;
-      message = "Valid Input";
-    }
-    this.displayMessage(bool, message);
+    this.displayMessage(bool, "Please Fill at Least 1 field");
     return bool;
   },
   takeOnlyInteger(obj) {
@@ -77,10 +61,25 @@ const app = {
         `<div class="alert alert-danger alert-dismissible fade show" role="alert"><strong>${msg}</strong><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>`
       );
   },
-  currencyConvert(obj, currencyRate = 1.0) {
+  async currencyConvert(obj, serial) {
+    const { countryFrom, countryTo } = this.getInputValues();
+
+    dataStorage.fromCurrency = countryFrom;
+    dataStorage.toCurrency = countryTo;
+    if (serial == 1) {
+      dataStorage.fromCurrency = countryTo;
+      dataStorage.toCurrency = countryFrom;
+    }
+
+    let currencyRate = 1;
+    if (countryFrom != countryTo) {
+      const currencyRateObject = await dataStorage.fetchRate();
+      currencyRate = Object.values(currencyRateObject)[0];
+    }
+
     let datam = parseFloat(obj.value);
     if (Boolean(datam) == true && datam >= 0) return datam * currencyRate;
-    return 0 * currencyRate;
+    else return 0 * currencyRate;
   },
   generateDropdown(obj) {
     const { fromCountry, toCountry } = this.loadSelectors();
@@ -89,30 +88,37 @@ const app = {
       .sort((a, b) => a.id.localeCompare(b.id))
       .map(
         (a) =>
-          `<option value="${a.currencyId}"> ${a.name} (${a.currencyName})</option>`
-      ).join('');
+          `<option value="${a.currencyId}" ${
+            a.name === "Bangladesh" ? "selected" : ""
+          }> ${a.name} (${a.currencyName})</option>`
+      )
+      .join("");
     fromCountry.innerHTML = "";
     toCountry.innerHTML = "";
     fromCountry.insertAdjacentHTML("afterbegin", dropDown);
     toCountry.insertAdjacentHTML("afterbegin", dropDown);
   },
   init() {
+    dataStorage.apiSecret = "ac5a9d9ad8e1824834e5";
     const { fromAmount, fromCountry, toAmount, toCountry, convertForm } =
       this.loadSelectors();
 
-    fromAmount.addEventListener("keyup", (e) => {
+    fromAmount.addEventListener("keyup", async (e) => {
       e.preventDefault();
       this.takeOnlyInteger(fromAmount);
-      toAmount.value = this.currencyConvert(fromAmount, 5.51);
+      toAmount.value = this.validateInputValues(fromAmount.value, null)
+        ? await this.currencyConvert(fromAmount, 0)
+        : "";
     });
 
-    toAmount.addEventListener("keyup", (e) => {
+    toAmount.addEventListener("keyup", async (e) => {
       e.preventDefault();
       this.takeOnlyInteger(toAmount);
-      fromAmount.value = this.currencyConvert(toAmount, 5.51);
+      fromAmount.value = this.validateInputValues(toAmount.value, null)
+        ? await this.currencyConvert(toAmount, 1)
+        : "";
     });
 
-    // convertForm.addEventListener("submit", async(e) => {
     convertForm.addEventListener("submit", (e) => {
       e.preventDefault();
       const { amountFrom, countryFrom, amountTo, countryTo } =
@@ -125,7 +131,6 @@ const app = {
 
     document.addEventListener("DOMContentLoaded", async (e) => {
       e.preventDefault();
-      dataStorage.apiSecret = "ac5a9d9ad8e1824834e5";
       const countryListObject = await dataStorage.fetchAllcountries();
       this.generateDropdown(countryListObject);
     });
