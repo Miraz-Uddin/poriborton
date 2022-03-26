@@ -1,58 +1,58 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- Bootstrap CSS -->
-    <link href="./public/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./public/assets/css/bootstrap.min.css" rel="stylesheet" />
 
     <!-- Google Roboto Font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="./public/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./public/assets/css/font-awesome.min.css" />
 
     <title>Convert Currency</title>
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="./public/assets/css/style.css">
-    <link rel="stylesheet" href="./public/assets/css/media.css">
+    <link rel="stylesheet" href="./public/assets/css/style.css" />
+    <link rel="stylesheet" href="./public/assets/css/media.css" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="./public/assets/img/favicon.ico">
-
+    <link rel="icon" type="image/png" href="./public/assets/img/favicon.ico" />
   </head>
   <body>
     <div class="container">
-        <div class="row">
-            <div class="col-sm-12 col-md-6 mx-auto">
-                <h1 class="title">Currency Converter</h1>
-                <div id="messageDisplay"></div>
-                <form id="convertForm">
-                  <div class="form">
-                    <input id="fromCurrency" type="text" value="EUR" disabled>
-                    <input type="text" id="fromAmount" placeholder="0">
-                    <select id="fromCountry">
-                      <option value="BDT">Bangladesh (Bangladeshi taka)</option>
-                    </select>
-                  </div>
-                  <div class="form">
-                      <input id="toCurrency" type="text" value="EUR" disabled>
-                      <input type="text" id="toAmount" placeholder="0">
-                      <select id="toCountry">
-                        <option value="BDT">Bangladesh (Bangladeshi taka)</option>
-                      </select>
-                  </div>
-                  <div>
-                    <input type="submit" value="Convert"  class="btn btn-light">
-                  </div>
-                </form>
-            </div>
-        </div>          
+      <div class="row">
+        <div class="col-sm-12 col-md-6 mx-auto">
+          <h1 class="title">Currency Converter</h1>
+          <div id="messageDisplay"></div>
+          <div class="form">
+            <input id="fromCurrency" type="text" value="EUR" disabled />
+            <input type="text" id="fromAmount" placeholder="0" />
+            <select id="fromCountry">
+              <option value="BDT">Bangladesh (Bangladeshi taka)</option>
+            </select>
+          </div>
+          <div class="form">
+            <input id="toCurrency" type="text" value="EUR" disabled />
+            <input type="text" id="toAmount" placeholder="0" />
+            <select id="toCountry">
+              <option value="BDT">Bangladesh (Bangladeshi taka)</option>
+            </select>
+          </div>
+          <div>
+            <input type="submit" value="Convert" class="btn btn-light" />
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Bootstrap JS -->

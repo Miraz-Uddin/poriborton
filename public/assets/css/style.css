@@ -1,5 +1,5 @@
-*{
-	font-family: 'Roboto', sans-serif;
+* {
+    font-family: 'Roboto', sans-serif;
 }
 
 a {
@@ -95,7 +95,7 @@ input[type="password"]::-ms-reveal {
 
 /* New Design */
 * {
-    margin:0;
+    margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
@@ -119,7 +119,8 @@ h1.title {
     margin-bottom: 10px;
 }
 
-input, select {
+input,
+select {
     border: 1px solid #ccc;
     text-align: center;
 }

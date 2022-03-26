@@ -3,7 +3,6 @@ import dataStorage from "./dataStorage.js";
 
 const app = {
   loadSelectors() {
-    const convertForm = document.querySelector("#convertForm");
     const fromCurrency = document.querySelector("#fromCurrency");
     const fromAmount = document.querySelector("#fromAmount");
     const fromCountry = document.querySelector("#fromCountry");
@@ -19,7 +18,6 @@ const app = {
       toAmount,
       toCountry,
       messageDisplay,
-      convertForm,
     };
   },
   getInputValues() {
@@ -61,7 +59,7 @@ const app = {
         `<div class="alert alert-danger alert-dismissible fade show" role="alert"><strong>${msg}</strong><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>`
       );
   },
-  async currencyConvert(obj, serial) {
+  async currencyConvert(amount, serial) {
     const { countryFrom, countryTo } = this.getInputValues();
 
     dataStorage.fromCurrency = countryFrom;
@@ -77,8 +75,8 @@ const app = {
       currencyRate = Object.values(currencyRateObject)[0];
     }
 
-    let datam = parseFloat(obj.value);
-    if (Boolean(datam) == true && datam >= 0) return datam * currencyRate;
+    if (Boolean(parseFloat(amount)) == true && parseFloat(amount) >= 0)
+      return parseFloat(amount) * currencyRate;
     else return 0 * currencyRate;
   },
   generateDropdown(obj) {
@@ -100,14 +98,14 @@ const app = {
   },
   init() {
     dataStorage.apiSecret = "ac5a9d9ad8e1824834e5";
-    const { fromAmount, fromCountry, toAmount, toCountry, convertForm } =
+    const { fromAmount, fromCountry, toAmount, toCountry } =
       this.loadSelectors();
 
     fromAmount.addEventListener("keyup", async (e) => {
       e.preventDefault();
       this.takeOnlyInteger(fromAmount);
       toAmount.value = this.validateInputValues(fromAmount.value, null)
-        ? await this.currencyConvert(fromAmount, 0)
+        ? await this.currencyConvert(fromAmount.value, 0)
         : "";
     });
 
@@ -115,17 +113,29 @@ const app = {
       e.preventDefault();
       this.takeOnlyInteger(toAmount);
       fromAmount.value = this.validateInputValues(toAmount.value, null)
-        ? await this.currencyConvert(toAmount, 1)
+        ? await this.currencyConvert(toAmount.value, 1)
         : "";
     });
 
-    convertForm.addEventListener("submit", (e) => {
+    fromCountry.addEventListener("change", async (e) => {
       e.preventDefault();
       const { amountFrom, countryFrom, amountTo, countryTo } =
         this.getInputValues();
       if (this.validateInputValues(amountFrom, amountTo)) {
-        dataStorage.fromUnit = amountFrom;
-        dataStorage.toUnit = amountTo;
+        dataStorage.fromCurrency = countryFrom;
+        dataStorage.toCurrency = countryTo;
+        toAmount.value = await this.currencyConvert(amountFrom, 0);
+      }
+    });
+
+    toCountry.addEventListener("change", async (e) => {
+      e.preventDefault();
+      const { amountFrom, countryFrom, amountTo, countryTo } =
+        this.getInputValues();
+      if (this.validateInputValues(amountFrom, amountTo)) {
+        dataStorage.fromCurrency = countryFrom;
+        dataStorage.toCurrency = countryTo;
+        fromAmount.value = await this.currencyConvert(amountTo, 1);
       }
     });
 
