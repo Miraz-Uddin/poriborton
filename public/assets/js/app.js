@@ -31,9 +31,8 @@ const app = {
     const countryTo = toCountry.value;
     return { amountFrom, countryFrom, amountTo, countryTo };
   },
-  validateInputValues(amountFrom, countryFrom, amountTo, countryTo) {
-    const { fromAmount, fromCountry, toAmount, toCountry } =
-      this.loadSelectors();
+  validateInputValues(amountFrom, amountTo) {
+    const { fromAmount, toAmount } = this.loadSelectors();
     let bool = false;
 
     let bool1 = false;
@@ -58,12 +57,13 @@ const app = {
       message = "Valid Input";
     }
     this.displayMessage(bool, message);
+    return bool;
   },
   takeOnlyInteger(obj) {
     let datam = parseInt(obj.value);
-    if(Boolean(datam) == true && datam >= 0){
-        obj.value = datam;
-        return true;
+    if (Boolean(datam) == true && datam >= 0) {
+      obj.value = datam;
+      return true;
     }
     obj.value = "";
     return false;
@@ -77,10 +77,24 @@ const app = {
         `<div class="alert alert-danger alert-dismissible fade show" role="alert"><strong>${msg}</strong><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>`
       );
   },
-  currencyConvert(obj, currencyRate = 1.00){
+  currencyConvert(obj, currencyRate = 1.0) {
     let datam = parseFloat(obj.value);
-    if(Boolean(datam) == true && datam >= 0) return datam * currencyRate;
+    if (Boolean(datam) == true && datam >= 0) return datam * currencyRate;
     return 0 * currencyRate;
+  },
+  generateDropdown(obj) {
+    const { fromCountry, toCountry } = this.loadSelectors();
+    const countriesObject = obj.results;
+    const dropDown = Object.values(countriesObject)
+      .sort((a, b) => a.id.localeCompare(b.id))
+      .map(
+        (a) =>
+          `<option value="${a.currencyId}"> ${a.name} (${a.currencyName})</option>`
+      ).join('');
+    fromCountry.innerHTML = "";
+    toCountry.innerHTML = "";
+    fromCountry.insertAdjacentHTML("afterbegin", dropDown);
+    toCountry.insertAdjacentHTML("afterbegin", dropDown);
   },
   init() {
     const { fromAmount, fromCountry, toAmount, toCountry, convertForm } =
@@ -89,7 +103,7 @@ const app = {
     fromAmount.addEventListener("keyup", (e) => {
       e.preventDefault();
       this.takeOnlyInteger(fromAmount);
-      toAmount.value = this.currencyConvert(fromAmount, 5.51); 
+      toAmount.value = this.currencyConvert(fromAmount, 5.51);
     });
 
     toAmount.addEventListener("keyup", (e) => {
@@ -98,11 +112,22 @@ const app = {
       fromAmount.value = this.currencyConvert(toAmount, 5.51);
     });
 
+    // convertForm.addEventListener("submit", async(e) => {
     convertForm.addEventListener("submit", (e) => {
       e.preventDefault();
       const { amountFrom, countryFrom, amountTo, countryTo } =
-        this.getInputValues(fromAmount, fromCountry, toAmount, toCountry);
-      this.validateInputValues(amountFrom, countryFrom, amountTo, countryTo);
+        this.getInputValues();
+      if (this.validateInputValues(amountFrom, amountTo)) {
+        dataStorage.fromUnit = amountFrom;
+        dataStorage.toUnit = amountTo;
+      }
+    });
+
+    document.addEventListener("DOMContentLoaded", async (e) => {
+      e.preventDefault();
+      dataStorage.apiSecret = "ac5a9d9ad8e1824834e5";
+      const countryListObject = await dataStorage.fetchAllcountries();
+      this.generateDropdown(countryListObject);
     });
   },
 };
